@@ -138,13 +138,20 @@
 
         $('#envoyerDonnees').click(function(){
 
-          var data = $('#donneesAEnvoyer').val();
+          var contenu = $('#donneesAEnvoyer').val();
+
+          var data = '{"textareaContent":"' + contenu + '"}';
+
+          data = JSON.parse(data);
 
           $.ajax({
             type: "POST",
             url: urlP,
             data: data,
-            dataType: 'text'
+            success: function(result){
+              alert('success');
+            },
+            dataType: 'jsonp'
           });
 
         });

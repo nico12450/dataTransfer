@@ -1,5 +1,6 @@
 const http = require('http');
 const fs = require('fs');
+const { parse } = require('querystring');
 
 http.createServer(function(req,rep){
 
@@ -40,9 +41,20 @@ http.createServer(function(req,rep){
 
 	}
 
-	else if(adresse == '/envoi'){
+	else if(req.method === 'POST'){
 
-		console.log(req.body);
+		var body = '';
+
+	    req.on('data', chunk => {
+	        body += chunk.toString();
+	    });
+
+	    req.on('end', () => {
+	    	var donnees = parse(body);
+	        console.log(donnees);
+	        rep.end();
+	        //rep.end('{"success" : "Updated Successfully", "status" : 200}');
+	    });
 
 	}
 
