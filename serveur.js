@@ -40,4 +40,10 @@ http.createServer(function(req,rep){
 
 	}
 
+	else if(adresse == '/envoi'){
+
+		console.log(req.body);
+
+	}
+
 }).listen(8080);

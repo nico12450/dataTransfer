@@ -30,7 +30,7 @@
 
       <div class = 'row'>
 
-        <div class = 'col-auto'>
+        <div class = 'col-lg-3 col-sm-5'>
 
           <button type="button" class="btn btn-success btn-lg" id = 'recupererDonnees'>Récupérer les données</button>
 
@@ -48,6 +48,22 @@
 
         <div class="alert alert-success" role="alert" id = "donneesRecuperees">
           Données récupérées !
+        </div>
+
+      </div>
+
+      <div class = 'row mt-2'>
+
+        <div class = 'col-lg-3 col-sm-5'>
+
+          <button type="button" class="btn btn-success btn-lg" id = 'envoyerDonnees'>Envoyer les données</button>
+
+        </div>
+
+        <div class = 'col-sm-4'>
+
+          <textarea class="form-control scrollbar-deep-purple bordered-deep-purple thin" id="donneesAEnvoyer" rows="8"></textarea>
+
         </div>
 
       </div>
@@ -100,22 +116,36 @@
 
       $( document ).ready(function() {
 
-      });
+        const urlD = '/donnees';
+        const urlP = '/envoi';
 
-      const url = '/donnees';
+        $('#recupererDonnees').click(function(){
 
-      $('#recupererDonnees').click(function(){
+          $.getJSON(urlD, function(data){
 
-        $.getJSON(url, function(data){
+            //console.log(data);
+            $('#donnees').append('<p>' + JSON.stringify(data) + '</p>');
+            $('#donneesRecuperees').show();
+            
+            setTimeout(function() { 
+              $('#donneesRecuperees').fadeOut(1000); 
+            }, 2000);
 
-          //console.log(data);
-          $('#donnees').append('<p>' + JSON.stringify(data) + '</p>');
-          $('#donneesRecuperees').show();
-          
-          setTimeout(function() { 
-            $('#donneesRecuperees').fadeOut(1000); 
-          }, 2000);
 
+          });
+
+        });
+
+        $('#envoyerDonnees').click(function(){
+
+          var data = $('#donneesAEnvoyer').val();
+
+          $.ajax({
+            type: "POST",
+            url: urlP,
+            data: data,
+            dataType: 'text'
+          });
 
         });
 
