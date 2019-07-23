@@ -66,6 +66,10 @@
 
         </div>
 
+        <div class="alert alert-success" role="alert" id = "donneesEnvoyees">
+          Données envoyées !
+        </div>
+
       </div>
 
     </div>
@@ -148,10 +152,19 @@
             type: "POST",
             url: urlP,
             data: data,
-            success: function(result){
-              alert('success');
-            },
-            dataType: 'jsonp'
+            dataType: 'json',
+            success: function(){
+
+              //console.log('success');
+
+              $('#donneesEnvoyees').show();
+              
+              setTimeout(function() { 
+                $('#donneesEnvoyees').fadeOut(1000); 
+              }, 2000);
+
+              }
+
           });
 
         });

@@ -50,10 +50,16 @@ http.createServer(function(req,rep){
 	    });
 
 	    req.on('end', () => {
+
 	    	var donnees = parse(body);
-	        console.log(donnees);
-	        rep.end();
-	        //rep.end('{"success" : "Updated Successfully", "status" : 200}');
+	        //console.log(donnees);
+	        var response = {
+    			status  : 200,
+    			success : 'Updated Successfully'
+			};
+
+	        rep.end(JSON.stringify(response));
+	        
 	    });
 
 	}
